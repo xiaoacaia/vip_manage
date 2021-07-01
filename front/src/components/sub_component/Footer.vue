@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="left"> 物联网工程（1）班 - 1808030134 - 张严</div>
+    <div class="left"> </div>
     <div class="right">
       <p>超市会员管理系统的设计与实现</p>
     </div>
