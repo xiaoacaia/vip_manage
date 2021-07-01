@@ -82,17 +82,23 @@ MySQL是一个关系型数据库管理系统，是目前最流行的关系型数
 
 MySQL所使用的 SQL 语言是用于访问数据库的最常用标准化语言。MySQL 软件采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型网站的开发都选择 MySQL 作为网站数据库。
 
-## 使用
+## 如何使用
+
+### 数据库
 
 创建名为`supermarket_manage_system`的数据库，运行sql文件
 
+### 后端
 
+在`backend`文件中
 
-在`backend`目录下的中，修改`application.properties`文件的数据库和用户名密码
+修改`application.properties`文件的数据库和用户名密码
 
 后端使用idea运行`SupermarkManageApplication` 的`main`函数
 
+### 前端
 
+在`front`文件中
 
 进入`front`使用
 
@@ -103,5 +109,11 @@ npm run dev
 
 运行前端界面
 
+## 参考
 
+[1] 十三 后台管理系统	 github.com/newbee-ltd/vue3-admin
+
+[2] Element-plus 中文文档  https://[element-plus.gitee.io/#/zh-CN/component/installation](https://element-plus.gitee.io/#/zh-CN/component/installation)
+
+[3] Vue3 中文文档 https://vue3js.cn/docs/zh/guide/introduction.html
 
