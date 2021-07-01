@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.supermarket_manage.mapper.GoodsRecordsMapper">
+
+    <resultMap id="GoodsRecords" type="com.zhang.supermarket_manage.pojo.GoodsRecords">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="vip_id" jdbcType="INTEGER" property="vipID" />
+        <result column="goods_id" jdbcType="INTEGER" property="goodsID" />
+        <result column="shopping_counts" jdbcType="INTEGER" property="shoppingCounts" />
+        <result column="shopping_time" jdbcType="VARCHAR" property="shoppingTime" />
+    </resultMap>
+
+    <resultMap id="DisplayRecords" type="com.zhang.supermarket_manage.pojo.DisplayRecords">
+        <result column="vip_name" jdbcType="VARCHAR" property="vipName" />
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+        <result column="shopping_counts" jdbcType="INTEGER" property="shoppingCounts" />
+        <result column="all_money" jdbcType="INTEGER" property="allMoney" />
+        <result column="shopping_time" jdbcType="VARCHAR" property="shoppingTime" />
+    </resultMap>
+
+    <select id="getAllGoodsRecords" resultMap="GoodsRecords">
+        select * from goods_records
+    </select>
+
+    <select id="getDisplayGoodsRecords" resultMap="DisplayRecords">
+        select
+            goods_records.id,
+            vip_list.vip_name,
+            goods_list.goods_name,
+            goods_records.shopping_counts,
+            goods_records.shopping_time,
+            goods_records.shopping_counts * goods_list.goods_price all_money
+        from goods_records,goods_list,vip_list
+        where
+            goods_records.vip_id = vip_list.id AND
+            goods_records.goods_id = goods_list.id
+    </select>
+
+
+    <insert id="insertGoodsRecords" parameterType="com.zhang.supermarket_manage.pojo.GoodsRecords" >
+insert into goods_records ( vip_id, goods_id ,shopping_counts , shopping_time )
+values (#{vipID}, #{goodsID}, #{shoppingCounts}, #{shoppingTime})
+    </insert>
+
+    <delete id="deleteGoodsRecords" parameterType="com.zhang.supermarket_manage.pojo.GoodsRecords" >
+        delete from goods_records where id= #{id}
+    </delete>
+
+
+    <update id="updateVipInformation" parameterType="com.zhang.supermarket_manage.pojo.GoodsRecords">
+UPDATE vip_list,goods_list
+    INNER JOIN(
+        select
+            vip_list.card_money - goods_list.goods_price * #{shoppingCounts} card_money,
+            vip_list.card_grade + goods_list.grade_rule * #{shoppingCounts} card_grade,
+            goods_list.goods_counts - #{shoppingCounts} goods_counts
+        from vip_list , goods_list
+        where
+            vip_list.id  = #{vipID}
+          AND
+            goods_list.id = #{goodsID} ) a
+set vip_list.card_money = a.card_money,
+    vip_list.card_grade = a.card_grade,
+    goods_list.goods_counts = a.goods_counts
+where vip_list.id  = #{vipID} and goods_list.id = #{goodsID}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.supermarket_manage.mapper.VipMapper">
+
+    <resultMap id="VipList" type="com.zhang.supermarket_manage.pojo.VipList">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="vip_name" jdbcType="VARCHAR" property="vipName" />
+        <result column="vip_level" jdbcType="VARCHAR" property="vipLevel" />
+        <result column="card_money" jdbcType="VARCHAR" property="cardMoney" />
+        <result column="card_grade" jdbcType="VARCHAR" property="cardGrade" />
+        <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    </resultMap>
+
+    <select id="getAllVip" resultMap="VipList">
+        select * from vip_list
+    </select>
+
+    <insert id="insertVip" parameterType="com.zhang.supermarket_manage.pojo.VipList" >
+        insert into vip_list ( vip_name, vip_level ,card_money , card_grade, create_time )
+        values (#{vipName}, #{vipLevel}, #{cardMoney}, #{cardGrade}, #{createTime})
+    </insert>
+
+    <delete id="deleteVip" parameterType="com.zhang.supermarket_manage.pojo.VipList" >
+        delete from vip_list where id= #{id}
+    </delete>
+
+    <update id="updateVipById" parameterType="com.zhang.supermarket_manage.pojo.VipList">
+        update vip_list set vip_name=#{vipName},
+                            vip_level = #{vipLevel},
+                            card_money = #{cardMoney},
+                            card_grade = #{cardGrade},
+                            create_time = #{createTime}
+        where id=#{id}
+    </update>
+
+
+</mapper>

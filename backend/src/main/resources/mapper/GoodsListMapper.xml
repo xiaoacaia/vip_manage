@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhang.supermarket_manage.mapper.GoodsListMapper">
+
+    <resultMap id="GoodsList" type="com.zhang.supermarket_manage.pojo.GoodsList">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="goods_id" jdbcType="VARCHAR" property="goodsID" />
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+        <result column="goods_price" jdbcType="VARCHAR" property="goodsPrice" />
+        <result column="goods_counts" jdbcType="VARCHAR" property="goodsCount" />
+        <result column="grade_rule" jdbcType="VARCHAR" property="gradeRule" />
+    </resultMap>
+
+
+    <select id="getAllGoodsList" resultMap="GoodsList">
+        select * from goods_list
+    </select>
+
+    <insert id="insertGoods" parameterType="com.zhang.supermarket_manage.pojo.GoodsList" >
+insert into goods_list ( goods_id, goods_name ,goods_price , goods_counts, grade_rule )
+values (#{goodsID}, #{goodsName}, #{goodsPrice}, #{goodsCount}, #{gradeRule})
+    </insert>
+
+    <delete id="deleteGoods" parameterType="com.zhang.supermarket_manage.pojo.GoodsList" >
+        delete from goods_list where id= #{id}
+    </delete>
+
+    <update id="updateGoodsById" parameterType="com.zhang.supermarket_manage.pojo.GoodsList">
+update goods_list set goods_id=#{goodsID},
+                      goods_name = #{goodsName},
+                      goods_price = #{goodsPrice},
+                      goods_counts = #{goodsCount},
+                      grade_rule = #{gradeRule}
+where id=#{id}
+    </update>
+
+
+
+
+</mapper>
